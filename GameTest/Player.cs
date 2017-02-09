@@ -26,7 +26,7 @@ namespace GameTest
 			this.rot = rot;
 			this.scale = scale;
 
-			int area = (int)((size.X * scale.X)  * (size.Y * scale.Y));
+			int area = (int)((size.X * scale.X) * (size.Y * scale.Y));
 
 			Color[] colorData = new Color[area];
 			for (int i = 0; i < area; i++)
@@ -50,9 +50,9 @@ namespace GameTest
 			this.size = size;
 		}
 
-		public void updatePos(GraphicsDevice graphics){
-			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-				Exit();
+		public void updatePos(GraphicsDevice graphics)
+		{
+
 			if (Keyboard.GetState().IsKeyDown(Keys.A))
 				pos.X -= speed;
 			if (Keyboard.GetState().IsKeyDown(Keys.D))
@@ -70,5 +70,6 @@ namespace GameTest
 				pos.Y = graphics.Viewport.Height - size.Y;
 			if (pos.Y < 0)
 				pos.Y = 0;
+		}
 	}
 }
