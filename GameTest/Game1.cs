@@ -33,8 +33,8 @@ namespace GameTest
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			//texture = Content.Load<Texture2D>("sprites/sprite");
-			player = new Player(GraphicsDevice, new Vector2(100,100), Color.Red);
+
+			player = new Player(GraphicsDevice, "sprites/sprite", new Vector2(100,100));
 
 		}
 
@@ -64,11 +64,10 @@ namespace GameTest
 		{
 			if (IsActive)
 			{
-				
-				
 				if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 					Exit();
-				
+
+				player.updatePos();
 
 				base.Update(gameTime);
 			}
