@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 namespace GameTest
 {
@@ -41,10 +42,10 @@ namespace GameTest
 		}
 		*/
 
-		public Sprite(String textureFile, 
+		public Sprite(ContentManager content, string textureFile, 
 		              Vector2 pos = default(Vector2), float rot = 0.0f, Vector2 scale = default(Vector2))
 		{
-			texture = Content.Load<Texture2D>(textureFile);
+			texture = content.Load<Texture2D>(textureFile);
 
 			this.pos = pos;
 			this.rot = rot;

@@ -34,7 +34,7 @@ namespace GameTest
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			player = new Player(GraphicsDevice, "sprites/sprite", new Vector2(100,100));
+			player = new Player(Content, "sprites/sprite", new Vector2(100,100));
 
 		}
 
