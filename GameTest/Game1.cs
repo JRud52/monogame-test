@@ -11,6 +11,8 @@ namespace GameTest
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Player player;
+		Level level;
+		Hud hud;
 
 		public Game1()
 		{
@@ -34,7 +36,12 @@ namespace GameTest
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			player = new Player(Content, "sprites/sprite", new Vector2(100,100));
+			player = new Player(Content, spriteBatch, "sprites/sprite", 
+			                    new Vector2(50, 50),
+			                    0, new Vector2(0.5f, 0.5f) );
+			player.layer = 0.5f;
+
+			hud = new Hud(Content, graphics, spriteBatch);
 
 		}
 
@@ -67,7 +74,7 @@ namespace GameTest
 				if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 					Exit();
 
-				player.updatePos();
+				level.updatePos();
 
 				base.Update(gameTime);
 			}
@@ -78,8 +85,10 @@ namespace GameTest
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			spriteBatch.Begin();
-			spriteBatch.Draw(player.texture, player.pos);
+			spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack);
+			player.Draw();
+			level.Draw();
+			hud.Draw();
 			spriteBatch.End();
 
 			base.Draw(gameTime);

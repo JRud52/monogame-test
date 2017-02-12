@@ -42,6 +42,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\Level.cs" />
+    <Compile Include="Entities\Hud.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Monogame_Stuff\Icon.png" />
