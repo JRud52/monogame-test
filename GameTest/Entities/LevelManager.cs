@@ -38,24 +38,24 @@ namespace GameTest
 
 		public void Draw()
 		{
-			for (int i = 0; i < ground_sprites.Count; i++)
+			foreach (var sprite in ground_sprites)
 			{
-				batch.Draw(collision_sprites[i].texture,
-					   origin: new Vector2(collision_sprites[i].texture.Width / 2, collision_sprites[i].texture.Height / 2),
+				batch.Draw(sprite.texture,
+					   origin: new Vector2(sprite.texture.Width / 2, sprite.texture.Height / 2),
 					   position: pos,
-					   rotation: collision_sprites[i].rot,
-					   scale: collision_sprites[i].scale,
-					   layerDepth: collision_sprites[i].layer
+					   rotation: sprite.rot,
+					   scale: sprite.scale,
+					   layerDepth: sprite.layer
 					  );
 			}
-			for (int i = 0; i < collision_sprites.Count; i++)
+			foreach (var sprite in collision_sprites)
 			{
-				batch.Draw(collision_sprites[i].texture,
-					   origin: new Vector2(collision_sprites[i].texture.Width / 2, collision_sprites[i].texture.Height / 2),
+				batch.Draw(sprite.texture,
+					   origin: new Vector2(sprite.texture.Width / 2, sprite.texture.Height / 2),
 					   position: pos,
-					   rotation: collision_sprites[i].rot,
-					   scale: collision_sprites[i].scale,
-					   layerDepth: collision_sprites[i].layer
+					   rotation: sprite.rot,
+					   scale: sprite.scale,
+					   layerDepth: sprite.layer
 					  );
 			}
 

@@ -38,9 +38,10 @@ namespace GameTest
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			player = new Player(Content, spriteBatch, "sprites/sprite",
+			player = new Player(Content, spriteBatch, "sprites/charactersheet",
+			                    new Vector2(16, 16),
 								new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
-								0, new Vector2(0.25f, 0.25f));
+			                    0, new Vector2(1.5f, 1.5f));
 			player.layer = 0.5f;
 
 			level = new LevelManager(Content, graphics, spriteBatch, player);
@@ -79,6 +80,7 @@ namespace GameTest
 					Exit();
 
 				level.updatePos();
+				player.updateAnim();
 
 				base.Update(gameTime);
 			}
@@ -90,7 +92,7 @@ namespace GameTest
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			spriteBatch.Begin(SpriteSortMode.FrontToBack);
-			player.Draw();
+			player.Draw(gameTime);
 			level.Draw();
 			hud.Draw();
 			spriteBatch.End();

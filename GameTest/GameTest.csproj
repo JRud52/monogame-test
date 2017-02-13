@@ -44,6 +44,9 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\LevelManager.cs" />
     <Compile Include="Entities\Hud.cs" />
+    <Compile Include="Entities\AnimSprite.cs" />
+    <Compile Include="Entities\Animation.cs" />
+    <Compile Include="Entities\InputManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Monogame_Stuff\Icon.png" />
