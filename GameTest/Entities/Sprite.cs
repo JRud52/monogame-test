@@ -8,11 +8,12 @@ namespace GameTest
 {
 	public class Sprite
 	{
-		public Texture2D texture;
-		public Vector2 pos;
-		public float rot;
-		public Vector2 scale;
-		public float layer;
+		public Texture2D texture { get; set; }
+		public Vector2 pos { get; set; }
+		public float rot { get; set; }
+		public Vector2 scale { get; set; }
+		public float layer { get; set; }
+		public bool collidable { get; set; }
 
 		readonly SpriteBatch batch;
 

@@ -8,20 +8,22 @@ namespace GameTest
 {
 	public class Game1 : Game
 	{
-		GraphicsDeviceManager graphics;
+		readonly GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Player player;
-		Level level;
+		LevelManager level;
 		Hud hud;
 
+		// initialize window settings
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 
+			IsMouseVisible = true;
 			IsFixedTimeStep = true;
 			graphics.SynchronizeWithVerticalRetrace = true;
-			TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 33); // 33ms = 30fps
+			TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 17); // 33ms = 30fps, 16.67ms = 60fps
 		}
 
 		// initialize non-graphic content here
@@ -30,29 +32,31 @@ namespace GameTest
 			base.Initialize();
 		}
 
-		// load all the content
+		// load all the graphical content
 		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			player = new Player(Content, spriteBatch, "sprites/sprite", 
-			                    new Vector2(50, 50),
-			                    0, new Vector2(0.5f, 0.5f) );
+			player = new Player(Content, spriteBatch, "sprites/sprite",
+								new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
+								0, new Vector2(0.25f, 0.25f));
 			player.layer = 0.5f;
 
-			hud = new Hud(Content, graphics, spriteBatch);
+			level = new LevelManager(Content, graphics, spriteBatch, player);
+
+			hud = new Hud(Content, graphics, spriteBatch, player);
 
 		}
 
-		//unload all the content
+		// unload all the content
 		protected override void UnloadContent()
 		{
 			Content.Unload();
 			base.UnloadContent();
 		}
 
-		//when window has focus
+		// when window has focus
 		protected override void OnActivated(object sender, EventArgs args)
 		{
 			Window.Title = "Active Application";
@@ -85,7 +89,7 @@ namespace GameTest
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack);
+			spriteBatch.Begin(SpriteSortMode.FrontToBack);
 			player.Draw();
 			level.Draw();
 			hud.Draw();
