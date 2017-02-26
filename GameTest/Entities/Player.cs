@@ -7,14 +7,19 @@ namespace GameTest
 {
 	public class Player : AnimSprite
 	{
+
 		public int health { get; set; }
 		public int walk_speed { get; set; }
 		public int run_speed { get; set; }
 
-		int walkDownAnimIndex;
-		int walkLeftAnimIndex;
-		int walkRightAnimIndex;
-		int walkUpAnimIndex;
+		public int walk_anim_speed { get; set; }
+		public int run_anim_speed { get; set; }
+		int anim_speed;
+
+		readonly int walkDownAnimIndex;
+		readonly int walkLeftAnimIndex;
+		readonly int walkRightAnimIndex;
+		readonly int walkUpAnimIndex;
 
 		Animation walkDownAnim;
 		Animation walkLeftAnim;
@@ -29,6 +34,9 @@ namespace GameTest
 			health = 100;
 			walk_speed = 3;
 			run_speed = 5;
+
+			run_anim_speed = 75;
+			walk_anim_speed = 100;
 
 			walkDownAnimIndex = 0;
 			walkLeftAnimIndex = 1;
@@ -47,38 +55,50 @@ namespace GameTest
 
 		}
 
-		public void updateAnim()
+		public void UpdateAnim()
 		{
-			KeyboardState state = Keyboard.GetState();
+			var state = Keyboard.GetState();
 
-			//if (state.IsKeyDown(Keys.LeftShift) || state.IsKeyDown(Keys.RightShift))
-			//currentAnim = runAnim;
+			if (state.IsKeyDown(Keys.LeftShift) || state.IsKeyDown(Keys.RightShift))
+			{
+				anim_speed = run_anim_speed;
+			}
+			else
+			{
+				anim_speed = walk_anim_speed;
+			}
+
 			if (state.IsKeyDown(Keys.A))
 			{
+				animList[walkLeftAnimIndex].duration = anim_speed;
 				animList[currentAnim].Stop();
 				currentAnim = walkLeftAnimIndex;
 				animList[currentAnim].Play();
 			}
 			if (state.IsKeyDown(Keys.D))
 			{
+				animList[walkRightAnimIndex].duration = anim_speed;
 				animList[currentAnim].Stop();
 				currentAnim = walkRightAnimIndex;
 				animList[currentAnim].Play();
 			}
 			if (state.IsKeyDown(Keys.W))
 			{
+				animList[walkUpAnimIndex].duration = anim_speed;
 				animList[currentAnim].Stop();
 				currentAnim = walkUpAnimIndex;
 				animList[currentAnim].Play();
 			}
 			if (state.IsKeyDown(Keys.S))
 			{
+				animList[walkDownAnimIndex].duration = anim_speed;
 				animList[currentAnim].Stop();
 				currentAnim = walkDownAnimIndex;
 				animList[currentAnim].Play();
 			}
 
-			if (!state.IsKeyDown(Keys.A) && !state.IsKeyDown(Keys.W) && !state.IsKeyDown(Keys.S) && !state.IsKeyDown(Keys.D))
+			if (!state.IsKeyDown(Keys.A) && !state.IsKeyDown(Keys.W) && 
+			    !state.IsKeyDown(Keys.S) && !state.IsKeyDown(Keys.D))
 			{
 				animList[currentAnim].Stop();
 			}

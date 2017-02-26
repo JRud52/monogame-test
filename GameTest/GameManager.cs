@@ -6,19 +6,22 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameTest
 {
-	public class Game1 : Game
+	public class GameManager : Game
 	{
 		readonly GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
-		Player player;
 		LevelManager level;
+
+		Player player;
 		Hud hud;
 
 		// initialize window settings
-		public Game1()
+		public GameManager()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+
+			Window.Title = "Game Title";
 
 			IsMouseVisible = true;
 			IsFixedTimeStep = true;
@@ -39,15 +42,14 @@ namespace GameTest
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			player = new Player(Content, spriteBatch, "sprites/charactersheet",
-			                    new Vector2(16, 16),
-								new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
-			                    0, new Vector2(1.5f, 1.5f));
+								new Vector2(16, 16),
+								new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, graphics.GraphicsDevice.Viewport.Height / 2),
+								0, new Vector2(1.5f, 1.5f));
 			player.layer = 0.5f;
 
 			level = new LevelManager(Content, graphics, spriteBatch, player);
 
 			hud = new Hud(Content, graphics, spriteBatch, player);
-
 		}
 
 		// unload all the content
@@ -55,20 +57,6 @@ namespace GameTest
 		{
 			Content.Unload();
 			base.UnloadContent();
-		}
-
-		// when window has focus
-		protected override void OnActivated(object sender, EventArgs args)
-		{
-			Window.Title = "Active Application";
-			base.OnActivated(sender, args);
-		}
-
-		// when window does not have focus
-		protected override void OnDeactivated(object sender, EventArgs args)
-		{
-			Window.Title = "InActive Application";
-			base.OnDeactivated(sender, args);
 		}
 
 		// update loop
@@ -79,8 +67,8 @@ namespace GameTest
 				if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 					Exit();
 
-				level.updatePos();
-				player.updateAnim();
+				level.Update();
+				player.UpdateAnim();
 
 				base.Update(gameTime);
 			}
@@ -90,11 +78,12 @@ namespace GameTest
 		protected override void Draw(GameTime gameTime)
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-
 			spriteBatch.Begin(SpriteSortMode.FrontToBack);
-			player.Draw(gameTime);
+
 			level.Draw();
+			player.Draw(gameTime);
 			hud.Draw();
+
 			spriteBatch.End();
 
 			base.Draw(gameTime);

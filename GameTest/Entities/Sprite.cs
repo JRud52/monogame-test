@@ -4,6 +4,15 @@ using Microsoft.Xna.Framework.Content;
 
 namespace GameTest
 {
+	/// <summary>
+	/// Basic static sprite implementation. No animation. 
+	/// </summary>
+	/// <remarks>
+	/// TODO: add collision logic.
+	/// </remarks>
+	 
+	// TODO add collision logic.
+
 	public class Sprite
 	{
 		public Texture2D texture { get; set; }

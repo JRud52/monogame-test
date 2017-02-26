@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace GameTest
 {
 	public class Animation
 	{
-		List<Rectangle> frames;
+		readonly List<Rectangle> frames;
 		int currentFrame;
 		double timeIntoFrame;
-		int duration;
+		public int duration { get; set; }
 		bool isPlaying;
 
 		/// <summary>

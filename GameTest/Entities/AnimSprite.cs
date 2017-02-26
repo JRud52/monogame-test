@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace GameTest
 {
+	/// <summary>
+	/// Animation sprite.
+	/// </summary>
 	public class AnimSprite
 	{
 		public Texture2D texture { get; set; }
@@ -26,9 +29,7 @@ namespace GameTest
 			texture = content.Load<Texture2D>(textureFile);
 
 			if (scale == default(Vector2))
-			{
 				scale = new Vector2(1, 1);
-			}
 
 			this.batch = batch;
 

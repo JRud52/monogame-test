@@ -8,11 +8,11 @@ namespace GameTest
 {
 	static class Program
 	{
-		private static Game1 game;
+		static GameManager game;
 
 		internal static void RunGame()
 		{
-			game = new Game1();
+			game = new GameManager();
 			game.Run();
 		}
 

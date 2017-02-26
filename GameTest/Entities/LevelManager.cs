@@ -9,26 +9,25 @@ namespace GameTest
 	public class LevelManager
 	{
 		readonly SpriteBatch batch;
-		readonly GraphicsDeviceManager graphics;
+		//readonly GraphicsDeviceManager graphics;
 
 		List<Sprite> ground_sprites;
 		List<Sprite> collision_sprites;
-		List<Sprite> foreground_sprites;
+		//List<Sprite> foreground_sprites;
 
 		readonly Player player;
-
 		Vector2 pos;
 		int speed;
 
 		public LevelManager(ContentManager content, GraphicsDeviceManager graphics, SpriteBatch batch, Player player)
 		{
 			this.batch = batch;
-			this.graphics = graphics;
+			//this.graphics = graphics;
 			this.player = player;
 
 			ground_sprites = new List<Sprite>();
 			collision_sprites = new List<Sprite>();
-			foreground_sprites = new List<Sprite>();
+			//foreground_sprites = new List<Sprite>();
 
 			var house = new Sprite(content, batch, "sprites/house",
 									  new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, graphics.GraphicsDevice.Viewport.Height / 2));
@@ -58,26 +57,45 @@ namespace GameTest
 					   layerDepth: sprite.layer
 					  );
 			}
-
-
 		}
 
-		public void updatePos()
+		public void Update()
 		{
-			KeyboardState state = Keyboard.GetState();
+			var state = Keyboard.GetState();
 
 			if (state.IsKeyDown(Keys.LeftShift) || state.IsKeyDown(Keys.RightShift))
 				speed = player.run_speed;
 			else 
 				speed = player.walk_speed;
+			
 			if (state.IsKeyDown(Keys.A))
-				pos.X += speed;
+			{
+				if (state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.S))
+					pos.X += speed - 1;
+				else
+					pos.X += speed;
+			}
 			if (state.IsKeyDown(Keys.D))
-				pos.X -= speed;
+			{
+				if (state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.S))
+					pos.X -= speed - 1;
+				else
+					pos.X -= speed;
+			}
 			if (state.IsKeyDown(Keys.W))
-				pos.Y += speed;
+			{
+				if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.D))
+					pos.Y += speed - 1;
+				else
+					pos.Y += speed;
+			}
 			if (state.IsKeyDown(Keys.S))
-				pos.Y -= speed;
+				{
+				if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.D))
+					pos.Y -= speed - 1;
+				else
+					pos.Y -= speed;
+			}
 		}
 	}
 }
